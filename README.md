@@ -1,5 +1,7 @@
 # Faikout Configuration Manager
 
+[![Support on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/holisticdataprojects)
+
 A self-hosted web UI and CLI for managing a fleet of [RevK Faikout](https://github.com/revk/Faikout)
 AC controllers over MQTT: a settings matrix across all your controllers,
 drift detection against a declared baseline, named profiles, automatic
@@ -151,3 +153,22 @@ MIT -- see [LICENSE](LICENSE).
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Support This Project
+
+Contributions here are entirely voluntary, and come in more forms than
+money: time, technical skills, ideas, and bug reports or hardware testing
+all help.
+
+- **Issues and pull requests** -- see [CONTRIBUTING.md](CONTRIBUTING.md) for
+  scope and expectations before opening one.
+- **Testing on real hardware** -- if you run a Faikout controller or
+  firmware version this hasn't been tested against, a report of what worked
+  or didn't is genuinely useful.
+- **Financial support, if you'd like** -- via Ko-fi:
+  https://ko-fi.com/holisticdataprojects
+
+This Ko-fi account is shared across Holistic Data's independent projects.
+You can support them collectively, or mention this project by name if you'd
+like your contribution to benefit it specifically -- preferences are
+handled manually, not allocated automatically.
