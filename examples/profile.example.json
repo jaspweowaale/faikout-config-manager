@@ -1,0 +1,8 @@
+{
+  "name": "standard-timezone",
+  "description": "Example profile: set timezone and dark-mode display. Config (plane D) keys only -- profiles cannot touch capability (the read-only 'no.*' map), identity/wiring, or the protected ota.auto key.",
+  "settings": {
+    "tz": "UTC",
+    "dark": true
+  }
+}

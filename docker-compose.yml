@@ -1,0 +1,16 @@
+services:
+  faikout-config-manager:
+    build: .
+    image: faikout-config-manager:local
+    ports:
+      - "8765:8765"
+    volumes:
+      - faikout_data:/data
+    environment:
+      # Set to "true" only after you've read SECURITY.md and decided you
+      # want this installation able to write settings to real hardware.
+      - ENABLE_LIVE_WRITES=false
+    restart: unless-stopped
+
+volumes:
+  faikout_data:

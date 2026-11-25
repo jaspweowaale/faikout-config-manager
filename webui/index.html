@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Faikout Configuration Manager</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <h1>Faikout Configuration Manager</h1>
+  <div id="write-banner" class="banner">Live writes: checking...</div>
+  <div id="connection-summary" class="connection-summary"></div>
+  <button id="refresh-btn">Refresh selected from live (read-only)</button>
+  <label><input type="checkbox" id="refresh-force"> force (ignore min-interval)</label>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="matrix">Settings Matrix</button>
+  <button class="tab-btn" data-tab="devices">Devices</button>
+  <button class="tab-btn" data-tab="mqtt">MQTT Settings</button>
+  <button class="tab-btn" data-tab="drift">Baseline &amp; Drift</button>
+  <button class="tab-btn" data-tab="profiles">Profiles</button>
+  <button class="tab-btn" data-tab="backups">Backups</button>
+  <button class="tab-btn" data-tab="history">History</button>
+</nav>
+
+<section id="tab-devices" class="tab-panel hidden">
+  <h2>Registered controllers</h2>
+  <table class="simple-table">
+    <thead><tr><th>Hostname</th><th>Label</th><th>Location</th><th>Model</th><th>Capacity</th><th>MAC</th><th>Added via</th><th></th></tr></thead>
+    <tbody id="devices-body"></tbody>
+  </table>
+
+  <h2>Add a controller manually</h2>
+  <div class="form-row">
+    <input id="add-hostname" placeholder="hostname (required, must match the device's own MQTT hostname)">
+    <input id="add-label" placeholder="label (optional)">
+    <input id="add-location" placeholder="physical location (optional)">
+    <input id="add-model" placeholder="model (optional, user-entered)">
+  </div>
+  <button id="add-device-btn">Add device</button>
+  <div id="add-device-result"></div>
+
+  <h2>Discover controllers on the configured MQTT broker</h2>
+  <button id="discover-btn">Discover</button>
+  <ul id="discover-results"></ul>
+</section>
+
+<section id="tab-mqtt" class="tab-panel hidden">
+  <h2>MQTT broker connection</h2>
+  <div id="mqtt-status"></div>
+  <div class="form-row">
+    <input id="mqtt-host" placeholder="broker host or IP">
+    <input id="mqtt-port" placeholder="port" value="1883" type="number">
+    <input id="mqtt-username" placeholder="username (optional)">
+    <input id="mqtt-password" placeholder="password (leave blank to keep unchanged)" type="password">
+    <label><input type="checkbox" id="mqtt-tls"> TLS</label>
+  </div>
+  <button id="mqtt-save-btn">Save</button>
+  <button id="mqtt-test-btn">Test connection</button>
+  <div id="mqtt-result"></div>
+</section>
+
+<section id="tab-matrix" class="tab-panel">
+  <div class="filter-bar">
+    <span>Filter:</span>
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="differences_only">Differences only</button>
+    <button class="filter-btn" data-filter="common">Common</button>
+    <button class="filter-btn" data-filter="protected">Protected</button>
+    <button class="filter-btn" data-filter="hardware_dependent">Hardware-dependent</button>
+  </div>
+
+  <div id="device-headers" class="device-headers"></div>
+  <div id="no-devices-message" class="muted hidden">No controllers registered yet -- add one on the Devices tab, or use Discover.</div>
+
+  <table id="matrix-table" class="matrix-table">
+    <thead><tr id="matrix-head-row"></tr></thead>
+    <tbody id="matrix-body"></tbody>
+  </table>
+
+  <div class="sync-bar">
+    <button id="preview-sync-btn">Preview synchronization of selected cells</button>
+    <span id="selection-count">0 cells selected</span>
+  </div>
+</section>
+
+<section id="tab-drift" class="tab-panel hidden">
+  <h2>Baseline</h2>
+  <pre id="baseline-json"></pre>
+  <h2>Drift findings</h2>
+  <table class="simple-table"><thead><tr><th>Severity</th><th>Controller</th><th>Setting</th><th>Live value</th><th>Expected</th></tr></thead>
+    <tbody id="drift-body"></tbody></table>
+  <h2>OTA auto-update protection status</h2>
+  <table class="simple-table"><thead><tr><th>Controller</th><th>ota.auto</th><th>Protected?</th></tr></thead>
+    <tbody id="ota-status-body"></tbody></table>
+</section>
+
+<section id="tab-profiles" class="tab-panel hidden">
+  <h2>Saved profiles</h2>
+  <ul id="profile-list"></ul>
+  <h2>Save current selection as a new profile</h2>
+  <input id="profile-name" placeholder="profile name">
+  <input id="profile-desc" placeholder="description (optional)">
+  <button id="save-profile-btn">Save selected cells as profile</button>
+  <div id="profile-save-result"></div>
+</section>
+
+<section id="tab-backups" class="tab-panel hidden">
+  <h2>Backups per controller</h2>
+  <div id="backups-list"></div>
+</section>
+
+<section id="tab-history" class="tab-panel hidden">
+  <h2>Configuration change history</h2>
+  <table class="simple-table"><thead><tr><th>Time</th><th>Op</th><th>Controller</th><th>Setting</th><th>Old</th><th>New</th><th>Verified</th><th>Rolled back</th></tr></thead>
+    <tbody id="history-body"></tbody></table>
+</section>
+
+<div id="preview-modal" class="modal hidden">
+  <div class="modal-content">
+    <h2>Dry-run preview</h2>
+    <table class="simple-table"><thead><tr><th>Controller</th><th>Setting</th><th>Current</th><th>New</th><th>Changes?</th></tr></thead>
+      <tbody id="preview-body"></tbody></table>
+    <div id="preview-problems" class="problems"></div>
+    <div class="modal-actions">
+      <button id="apply-btn" class="danger">Apply</button>
+      <button id="close-preview-btn">Close</button>
+    </div>
+    <div id="apply-result"></div>
+  </div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>

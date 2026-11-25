@@ -1,0 +1,7 @@
+{
+  "ac-demo-a": "build-stable",
+  "ac-demo-b": "build-stable",
+  "ac-demo-c": "build-stable",
+  "ac-demo-d": "build-new",
+  "ac-demo-e": "build-new"
+}

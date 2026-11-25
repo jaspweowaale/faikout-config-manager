@@ -1,0 +1,24 @@
+{
+  "ac-living-room": {
+    "hostname": "ac-living-room",
+    "mac": "AABBCCDD0001",
+    "label": "Living Room",
+    "physical_location": "Living Room",
+    "real_model": "",
+    "real_capacity_hp": null,
+    "real_capacity_kw": null,
+    "notes": "",
+    "added_via": "manual"
+  },
+  "ac-bedroom": {
+    "hostname": "ac-bedroom",
+    "mac": "AABBCCDD0002",
+    "label": "Bedroom",
+    "physical_location": "Bedroom",
+    "real_model": "",
+    "real_capacity_hp": null,
+    "real_capacity_kw": null,
+    "notes": "",
+    "added_via": "discovery"
+  }
+}
